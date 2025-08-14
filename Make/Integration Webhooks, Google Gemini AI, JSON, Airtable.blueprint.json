@@ -1,0 +1,976 @@
+{
+    "name": "Integration Webhooks, Google Gemini AI, JSON, Airtable",
+    "flow": [
+        {
+            "id": 7,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 2994984,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "My gateway-webhook webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "help": "",
+                        "name": "nom",
+                        "type": "text",
+                        "label": "Nom",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "mail",
+                        "type": "text",
+                        "label": "Mail",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "source",
+                        "type": "text",
+                        "label": "Source",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "name": "__IMTMETHOD__",
+                        "type": "text",
+                        "label": "Method"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 21,
+            "module": "gemini-ai:createACompletionGeminiPro",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 10801912
+            },
+            "mapper": {
+                "model": "gemini-2.0-flash",
+                "contents": [
+                    {
+                        "role": "user",
+                        "parts": [
+                            {
+                                "type": "text",
+                                "text": "Analyse le lead suivant et attribue-lui un score d'intérêt entre 0 et 100, basé sur la pertinence, l'urgence et le potentiel d'achat.  \nCritères : pertinence, urgence, potentiel d’achat.  \nLead : Nom {{7.nom}},mail: {{7.email}},  source :{{7.source}} ,demande :{{7.message}}.  \n\nFournis-moi la réponse dans un format JSON comme ceci :  \n{\n  \"id\": \"LEAD_{{random}}\",\n  \"nom\": \"string\",\n  \"raison\" : \"string\"\n  \"email\": \"string\",\n  \"source\": \"{{var.team.name}}\",\n  \"statut\": \"string\",\n  \"scoreIA\": number,\n  \"dateCreation\": \"{{now}}\",\n  \"reponseTotal\": \"string\"\n}\n\nla date correspond à l'heure ou tu reçois la requette\nla raison c'est ceux pourquoi cette note est attribuée.\n\n\nvoici quelques scenario pour t'aider à determiner un score IA. les score augmentent de 1 au fur et à mesure\n\nJe veux construire un vaisseau spatial avec des LEGO.\n\nJe cherche un moyen de téléporter mes plantes à distance.\n\nJe souhaite créer une machine à voyager dans le temps pour mon bureau.\n\nJe veux un robot qui me prépare des pancakes pendant que je dors.\n\nJe souhaite un miroir qui me donne des conseils de vie.\n\nJe veux un drone capable de jouer à cache-cache.\n\nJe cherche un logiciel pour parler avec mes chats.\n\nJe souhaite un site qui transforme mes rêves en tableaux.\n\nJe veux un assistant qui organise mes chaussettes par couleur.\n\nJe souhaite un bouton qui transforme le café en énergie infinie.\n\nJe veux créer une application pour prédire la pluie sur Mars.\n\nJe souhaite un casque VR pour visiter des mondes imaginaires.\n\nJe veux un générateur automatique de poèmes absurdes.\n\nJe souhaite un frigo qui chante quand il manque des aliments.\n\nJe veux une application qui devine ce que je vais manger.\n\nJe souhaite un site qui classe les nuages selon leur forme.\n\nJe veux un robot qui raconte des blagues à mes plantes.\n\nJe souhaite une montre qui arrête le temps quand je dors.\n\nJe veux un traducteur universel pour communiquer avec les oiseaux.\n\nJe souhaite un logiciel qui écrit des histoires avec mes rêves.\n\nJe veux un site pour échanger mes chaussures avec d’autres gens.\n\nJe souhaite un drone qui arrose mes plantes en chantant.\n\nJe veux un assistant qui devine mes envies de snacks.\n\nJe souhaite une application pour noter les rêves des autres.\n\nJe veux un site qui prédit la couleur des chaussettes demain.\n\nJe souhaite un assistant virtuel qui me félicite chaque matin.\n\nJe veux un site pour créer des villes imaginaires en ligne.\n\nJe souhaite un robot qui me raconte des histoires de pirates.\n\nJe veux un générateur de noms de chats aléatoires.\n\nJe souhaite un logiciel qui transforme mes dessins en musiques.\n\nJe veux une appli pour savoir si mes plantes me jugent.\n\nJe souhaite un site qui me conseille quelle couleur porter selon l’humeur.\n\nJe veux un assistant qui me dit quand je rêve trop.\n\nJe souhaite une application pour créer des cafés virtuels.\n\nJe veux un générateur automatique de surnoms ridicules.\n\nJe souhaite un robot qui organise mes emails par humeur.\n\nJe veux un site qui calcule la vitesse de ma sieste.\n\nJe souhaite un assistant qui m’applaudit après chaque réunion.\n\nJe veux un logiciel qui transforme mes pas en musique.\n\nJe souhaite une application qui me rappelle de respirer.\n\nJe veux un site qui note la qualité de mes blagues.\n\nJe souhaite un robot qui trie mes fichiers selon leur niveau de fun.\n\nJe veux un assistant qui lit mes pensées pour m’écrire des poèmes.\n\nJe souhaite un site pour vendre mes idées absurdes.\n\nJe veux un générateur automatique de rêves éveillés.\n\nJe souhaite un assistant qui m’envoie des citations absurdes chaque matin.\n\nJe veux un logiciel pour savoir si mes plantes m’aiment.\n\nJe souhaite un site pour comparer la vitesse des escargots.\n\nJe veux un robot qui me raconte des histoires de la vie des fourmis.\n\nJe souhaite un assistant qui détecte les mauvaises vibes autour de moi.\n\nJe veux une application qui transforme mes émotions en couleurs.\n\nJe souhaite un site qui classe les nuages par leur niveau de coolitude.\n\nJe veux un robot qui organise mes fichiers selon l’odeur.\n\nJe souhaite un assistant qui me rappelle de sourire à ma plante.\n\nJe veux une application qui prédit mes futurs éclats de rire.\n\nJe souhaite un site pour échanger mes idées farfelues contre des cookies.\n\nJe veux un générateur de noms de planètes imaginaires.\n\nJe souhaite un robot qui me fait des high-five virtuels.\n\nJe veux un assistant qui note la qualité de mes pas de danse.\n\nJe souhaite un logiciel qui transforme mes erreurs en poésie.\n\nJe veux une application qui raconte des histoires aléatoires à mon chat.\n\nJe souhaite un site qui compare la vitesse de croissance des cheveux.\n\nJe veux un générateur de cartes postales absurdes.\n\nJe souhaite un assistant qui mesure ma créativité chaque matin.\n\nJe veux une application pour apprendre à parler aux plantes.\n\nJe souhaite un site qui transforme mes notes de réunion en chansons.\n\nJe veux un robot qui fait du yoga avec moi.\n\nJe souhaite un assistant qui devine ce que je pense avant moi.\n\nJe veux une application pour créer des cocktails imaginaires.\n\nJe souhaite un site pour échanger mes rêves contre des histoires.\n\nJe veux un générateur de slogans absurdes pour ma marque.\n\nJe souhaite un robot qui m’applaudit après chaque tâche accomplie.\n\nJe veux une application pour noter mes idées les plus bizarres.\n\nJe souhaite un site qui classe mes chaussettes selon leur humeur.\n\nJe veux un assistant qui me rappelle de dire merci aux objets.\n\nJe souhaite une application qui transforme mes pauses café en mini-jeux.\n\nJe veux un robot qui chante mes to-do lists.\n\nJe souhaite un site pour échanger mes blagues contre des stickers.\n\nJe veux un générateur de défis absurdes pour mes collègues.\n\nJe souhaite un assistant qui me donne des surnoms ridicules.\n\nJe veux une application qui note mes journées selon leur fun.\n\nJe souhaite un site pour créer des avatars absurdes pour mes emails.\n\nJe veux un robot qui me raconte des anecdotes de la vie des objets.\n\nJe souhaite un assistant qui transforme mes réunions en contes.\n\nJe veux une application qui devine ma prochaine envie de snack.\n\nJe souhaite un site pour créer des labyrinthes virtuels absurdes.\n\nJe veux un générateur de noms absurdes pour mes fichiers.\n\nJe souhaite un assistant qui me prédit mes prochaines siestes.\n\nJe veux une application pour organiser mes pensées comme un puzzle.\n\nJe souhaite un site qui classe mes emails selon leur humour.\n\nJe veux un robot qui me fait rire quand je travaille trop.\n\nJe souhaite un assistant qui transforme mes tâches en mini-aventures.\n\nJe veux une application qui analyse mes rêves pour en faire des histoires.\n\nJe souhaite un site pour noter mes moments absurdes de la journée.\n\nJe veux un générateur de défis créatifs pour mes amis.\n\nJe souhaite un assistant qui transforme mes idées farfelues en mini-projets.\n\nJe veux une application pour suivre la croissance de mes plantes.\n\nJe souhaite un site qui analyse mes besoins professionnels et propose des solutions concrètes.\n\nJe veux un assistant pour automatiser certaines tâches dans mon entreprise.\n\nJe souhaite une solution complète pour améliorer ma visibilité et mes ventes en ligne."
+                            }
+                        ]
+                    }
+                ],
+                "system_instruction": {},
+                "generationConfig": {
+                    "thinkingConfig": {},
+                    "responseMimeType": "application/json"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "My Gemini AI",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "gemini-ai-q9zyjp"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "model": {
+                            "mode": "chose",
+                            "label": "Gemini 2.0 Flash"
+                        },
+                        "contents": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "role": {
+                                        "mode": "chose",
+                                        "label": "User"
+                                    },
+                                    "parts": {
+                                        "mode": "chose",
+                                        "items": [
+                                            {
+                                                "type": {
+                                                    "mode": "chose",
+                                                    "label": "Text"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "system_instruction": {
+                            "nested": {
+                                "parts": {
+                                    "mode": "chose"
+                                }
+                            }
+                        },
+                        "safetySettings": {
+                            "mode": "chose"
+                        },
+                        "generationConfig": {
+                            "nested": {
+                                "stopSequences": {
+                                    "mode": "chose"
+                                },
+                                "responseModalities": {
+                                    "mode": "chose"
+                                },
+                                "thinkingConfig": {
+                                    "nested": {
+                                        "include_thoughts": {
+                                            "mode": "chose"
+                                        }
+                                    }
+                                },
+                                "responseMimeType": {
+                                    "mode": "edit"
+                                },
+                                "new_responseSchema": {
+                                    "mode": "chose"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:gemini-ai-q9zyjp",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "model",
+                        "type": "select",
+                        "label": "AI Model",
+                        "required": true
+                    },
+                    {
+                        "name": "contents",
+                        "type": "array",
+                        "label": "Messages",
+                        "required": true,
+                        "spec": [
+                            {
+                                "name": "role",
+                                "type": "select",
+                                "label": "Role",
+                                "options": [
+                                    {
+                                        "label": "User",
+                                        "value": "user"
+                                    },
+                                    {
+                                        "label": "Model",
+                                        "value": "model"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "parts",
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Message Type",
+                                        "options": [
+                                            {
+                                                "label": "Text",
+                                                "value": "text",
+                                                "nested": [
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": false
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "File",
+                                                "value": "file",
+                                                "nested": [
+                                                    {
+                                                        "name": "file_data",
+                                                        "spec": [
+                                                            {
+                                                                "name": "mime_type",
+                                                                "type": "text",
+                                                                "label": "Mime Type",
+                                                                "required": false
+                                                            },
+                                                            {
+                                                                "help": "You get this from the 'Upload a File' module.",
+                                                                "name": "file_uri",
+                                                                "type": "text",
+                                                                "label": "File URI",
+                                                                "required": false
+                                                            }
+                                                        ],
+                                                        "type": "collection",
+                                                        "label": "File Data",
+                                                        "required": false
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "type": "array",
+                                "label": "Parts"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "system_instruction",
+                        "type": "collection",
+                        "label": "System Instructions",
+                        "spec": [
+                            {
+                                "name": "parts",
+                                "type": "array",
+                                "label": "Prompts",
+                                "spec": {
+                                    "spec": [
+                                        {
+                                            "name": "text",
+                                            "type": "text",
+                                            "label": "Value"
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Prompt",
+                                    "name": "value"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "safetySettings",
+                        "type": "array",
+                        "label": "Safety Settings",
+                        "spec": [
+                            {
+                                "name": "category",
+                                "type": "select",
+                                "label": "Category",
+                                "options": [
+                                    {
+                                        "label": "Harassment content",
+                                        "value": "HARM_CATEGORY_HARASSMENT"
+                                    },
+                                    {
+                                        "label": "Hate speech and content",
+                                        "value": "HARM_CATEGORY_HATE_SPEECH"
+                                    },
+                                    {
+                                        "label": "Sexually explicit content.",
+                                        "value": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+                                    },
+                                    {
+                                        "label": "Dangerous content:",
+                                        "value": "HARM_CATEGORY_DANGEROUS_CONTENT"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "threshold",
+                                "type": "select",
+                                "label": "Threshold",
+                                "options": [
+                                    {
+                                        "label": "Block low and above.",
+                                        "value": "BLOCK_LOW_AND_ABOVE"
+                                    },
+                                    {
+                                        "label": "Block medium and above.",
+                                        "value": "BLOCK_MEDIUM_AND_ABOVE"
+                                    },
+                                    {
+                                        "label": "Block only high.",
+                                        "value": "BLOCK_ONLY_HIGH"
+                                    },
+                                    {
+                                        "label": "Block none.",
+                                        "value": "BLOCK_NONE"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "generationConfig",
+                        "type": "collection",
+                        "label": "Generation configurations",
+                        "spec": [
+                            {
+                                "name": "stopSequences",
+                                "type": "array",
+                                "label": "Stop Sequences",
+                                "spec": {
+                                    "type": "text",
+                                    "label": "Stop Sequence",
+                                    "name": "value"
+                                }
+                            },
+                            {
+                                "name": "responseModalities",
+                                "type": "select",
+                                "label": "Response Modalities",
+                                "multiple": true,
+                                "validate": {
+                                    "enum": [
+                                        "text",
+                                        "image"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "maxOutputTokens",
+                                "type": "number",
+                                "label": "Max Output Tokens"
+                            },
+                            {
+                                "name": "temperature",
+                                "type": "number",
+                                "label": "Temperature",
+                                "validate": {
+                                    "max": 1,
+                                    "min": 0
+                                }
+                            },
+                            {
+                                "name": "topP",
+                                "type": "number",
+                                "label": "Top P",
+                                "validate": {
+                                    "max": 1,
+                                    "min": 0
+                                }
+                            },
+                            {
+                                "name": "topK",
+                                "type": "number",
+                                "label": "Top K"
+                            },
+                            {
+                                "name": "thinkingConfig",
+                                "type": "collection",
+                                "label": "Thinking Config",
+                                "spec": [
+                                    {
+                                        "name": "thinkingBudget",
+                                        "type": "number",
+                                        "label": "Thinking Budget"
+                                    },
+                                    {
+                                        "name": "include_thoughts",
+                                        "type": "boolean",
+                                        "label": "Include Thoughts"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "responseMimeType",
+                                "type": "select",
+                                "label": "Response Mime Type"
+                            },
+                            {
+                                "name": "responseSchema",
+                                "type": "any",
+                                "label": "Response Schema (Deprecated)"
+                            },
+                            {
+                                "name": "new_responseSchema",
+                                "type": "array",
+                                "label": "Response Schema",
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Value Type",
+                                        "options": [
+                                            {
+                                                "label": "String",
+                                                "value": "string",
+                                                "nested": "rpc://gemini-ai/1/createResponseSchema?type=string"
+                                            },
+                                            {
+                                                "label": "Enum",
+                                                "value": "enum",
+                                                "nested": "rpc://gemini-ai/1/createResponseSchema?type=enum"
+                                            },
+                                            {
+                                                "label": "Number",
+                                                "value": "number",
+                                                "nested": "rpc://gemini-ai/1/createResponseSchema?type=number"
+                                            },
+                                            {
+                                                "label": "Integer",
+                                                "value": "integer",
+                                                "nested": "rpc://gemini-ai/1/createResponseSchema?type=integer"
+                                            },
+                                            {
+                                                "label": "Boolean",
+                                                "value": "boolean",
+                                                "nested": "rpc://gemini-ai/1/createResponseSchema?type=boolean"
+                                            },
+                                            {
+                                                "label": "Object",
+                                                "value": "object",
+                                                "nested": "rpc://gemini-ai/1/createResponseSchema?type=object"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "tools",
+                        "type": "any",
+                        "label": "Tools"
+                    },
+                    {
+                        "name": "tool_config",
+                        "type": "any",
+                        "label": "Tool Config"
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 22,
+            "module": "json:ParseJSON",
+            "version": 1,
+            "parameters": {
+                "type": 394074
+            },
+            "mapper": {
+                "json": "{{21.result}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "type": {
+                            "label": "the output"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "type",
+                        "type": "udt",
+                        "label": "Data structure"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "json",
+                        "type": "text",
+                        "label": "JSON string",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "help": "",
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "nom",
+                        "type": "text",
+                        "label": "Nom",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "email",
+                        "type": "text",
+                        "label": "Email",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "source",
+                        "type": "text",
+                        "label": "Source",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "statut",
+                        "type": "text",
+                        "label": "Statut",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "help": "",
+                        "name": "scoreIA",
+                        "type": "number",
+                        "label": "Score ia",
+                        "default": null,
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "dateCreation",
+                        "type": "text",
+                        "label": "Date creation",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    }
+                ]
+            }
+        },
+        {
+            "id": 27,
+            "module": "airtable:ActionCreateRecord",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 10780947
+            },
+            "mapper": {
+                "base": "app1JBPUv4Ory2JYe",
+                "typecast": false,
+                "useColumnId": false,
+                "table": "tblk294cfxvQI2ldi",
+                "record": {
+                    "fldPoyQ5vASbzkGVJ": "{{22.id}}",
+                    "fldk0xRfOHE6JR86m": "{{22.nom}}",
+                    "fld91KjgCIaSdfOGc": "{{22.email}}",
+                    "fldYoEdeKuZl04ja4": "{{22.source}}",
+                    "fldmI4qbYZtTmDpWo": "{{22.scoreIA}}",
+                    "fldcFWxnXmfP881MX": "{{now}}",
+                    "fldBsntyLGTwbLind": "{{22.statut}}",
+                    "fldspVrsBHNQCQ9tm": "{{22.raison}}"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "Galaxy manager",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "base": {
+                            "label": "Untitled Base"
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        },
+                        "table": {
+                            "nested": [
+                                {
+                                    "name": "record",
+                                    "spec": [
+                                        {
+                                            "name": "fldPoyQ5vASbzkGVJ",
+                                            "label": "ID",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "fldk0xRfOHE6JR86m",
+                                            "label": "Nom",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "fld91KjgCIaSdfOGc",
+                                            "label": "Email",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "fldYoEdeKuZl04ja4",
+                                            "label": "Source",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "fldmI4qbYZtTmDpWo",
+                                            "label": "Score IA",
+                                            "type": "number"
+                                        },
+                                        {
+                                            "name": "fldcFWxnXmfP881MX",
+                                            "label": "Date de création",
+                                            "type": "date",
+                                            "time": false
+                                        },
+                                        {
+                                            "name": "fldBsntyLGTwbLind",
+                                            "label": "statut",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "fldspVrsBHNQCQ9tm",
+                                            "label": "raison",
+                                            "type": "text",
+                                            "multiline": true
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Record"
+                                }
+                            ],
+                            "label": "data stored"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "type": "collection",
+                        "label": "Record",
+                        "spec": [
+                            {
+                                "name": "fldPoyQ5vASbzkGVJ",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "fldk0xRfOHE6JR86m",
+                                "type": "text",
+                                "label": "Nom"
+                            },
+                            {
+                                "name": "fld91KjgCIaSdfOGc",
+                                "type": "text",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "fldYoEdeKuZl04ja4",
+                                "type": "text",
+                                "label": "Source"
+                            },
+                            {
+                                "name": "fldmI4qbYZtTmDpWo",
+                                "type": "number",
+                                "label": "Score IA"
+                            },
+                            {
+                                "name": "fldcFWxnXmfP881MX",
+                                "type": "date",
+                                "label": "Date de création",
+                                "time": false
+                            },
+                            {
+                                "name": "fldBsntyLGTwbLind",
+                                "type": "text",
+                                "label": "statut"
+                            },
+                            {
+                                "name": "fldspVrsBHNQCQ9tm",
+                                "type": "text",
+                                "label": "raison"
+                            }
+                        ]
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "ID",
+                        "label": "ID",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Nom",
+                        "label": "Nom",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Email",
+                        "label": "Email",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Source",
+                        "label": "Source",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Statuts",
+                        "label": "Statuts",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Score IA",
+                        "label": "Score IA",
+                        "type": "number"
+                    },
+                    {
+                        "name": "Date de création",
+                        "label": "Date de création",
+                        "type": "date",
+                        "time": false
+                    },
+                    {
+                        "name": "statut",
+                        "label": "statut",
+                        "type": "text"
+                    },
+                    {
+                        "name": "raison",
+                        "label": "raison",
+                        "type": "text",
+                        "multiline": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 23,
+            "module": "telegram:SendReplyMessage",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 10801033
+            },
+            "mapper": {
+                "text": "vous avez une nouvelle suggestion de {{22.nom}} provenant de{{22.source}} pour verifier les infos, suivez ce lien : https://airtable.com/app1JBPUv4Ory2JYe/tblk294cfxvQI2ldi/viwzqERnY79VQcw9T?blocks=hide",
+                "chatId": "5636297362",
+                "parseMode": "",
+                "replyMarkup": "",
+                "messageThreadId": "",
+                "replyToMessageId": "",
+                "replyMarkupAssembleType": "reply_markup_enter"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "parseMode": {
+                            "label": "Empty"
+                        },
+                        "disableNotification": {
+                            "mode": "chose"
+                        },
+                        "replyMarkupAssembleType": {
+                            "label": "Enter the Reply Markup"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "telegram"
+                            },
+                            "label": "My Telegram Bot connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:telegram",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "chatId",
+                        "type": "text",
+                        "label": "Chat ID",
+                        "required": true
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text",
+                        "required": true
+                    },
+                    {
+                        "name": "messageThreadId",
+                        "type": "number",
+                        "label": "Message Thread ID"
+                    },
+                    {
+                        "name": "parseMode",
+                        "type": "select",
+                        "label": "Parse Mode",
+                        "validate": {
+                            "enum": [
+                                "Markdown",
+                                "HTML"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "disableNotification",
+                        "type": "boolean",
+                        "label": "Disable Notifications"
+                    },
+                    {
+                        "name": "disableWebPagePreview",
+                        "type": "boolean",
+                        "label": "Disable Link Previews"
+                    },
+                    {
+                        "name": "replyToMessageId",
+                        "type": "number",
+                        "label": "Original Message ID"
+                    },
+                    {
+                        "name": "replyMarkupAssembleType",
+                        "type": "select",
+                        "label": "Enter/Assemble the Reply Markup Field",
+                        "validate": {
+                            "enum": [
+                                "reply_markup_enter",
+                                "reply_markup_assemble"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "replyMarkup",
+                        "type": "text",
+                        "label": "Reply Markup"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
