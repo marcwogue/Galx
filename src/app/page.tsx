@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FormEvent, FormEventHandler, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Head from "next/head";
 import { entry } from "./Interface";
 
@@ -32,6 +32,9 @@ export default function Landing() {
       .then(async (res) => {
         setLoading(false); // masquer le loader
         if (!res.ok) throw new Error(await res.text());
+        setTimeout(() => {
+          setMessage("") 
+        }, 3000);
         setMessage("Votre demande a été envoyée avec succès ! veuillez patienter le temp de vous repondre");
         form.reset();
       })

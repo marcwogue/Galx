@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { entry } from "../../Interface"; // adapte le chemin si nécessaire
+import { entry } from "../../Interface";
 
 export async function POST(req: NextRequest) {
   try {
     const data: entry = await req.json();
 
-    // URL de ton webhook Make
     const makeWebhookUrl = "https://hook.eu2.make.com/2eidijs8vrgqbpn4wgxphx1s553gqff9";
 
     // Ta clé API Make
-    const makeApiKey = "_Maker_zod12340000"; // à définir dans .env
+    const makeApiKey = "_Maker_zod12340000"; 
 
     // Envoi des données à Make avec x-make-apikey
     console.log("Data reçue :", data);
