@@ -143,7 +143,7 @@ export default function Landing() {
           </div>
 
           {/* Stats */}
-          <div className="absolute bottom-10 left-0 right-0">
+          <div className="bottom-0 left-0 right-0">
             <div className="flex flex-wrap justify-center gap-8 md:gap-16">
               <div className="text-center">
                 <div className="text-3xl font-bold text-[#00CFFF]">24h</div>
